@@ -1,6 +1,5 @@
 import * as nodemailer from 'nodemailer'
 
-console.log(process.env.SMTP_USER)
 const sendMail = async ({ from, to, subject, html }) => {
   // Create a transporter using your email service credentials
   const transporter = nodemailer.createTransport({
@@ -16,14 +15,12 @@ const sendMail = async ({ from, to, subject, html }) => {
 
   // Define your mail options (sender, receiver, content)
   const mailOptions = {
-    from,
+    from: `"no-reply" <${from}>`,
     to,
     subject,
     html,
   }
 
-  console.log('sending email')
-  // Send the email
   await transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return console.log('Error occurred: ' + error.message)

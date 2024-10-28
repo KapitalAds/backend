@@ -6,7 +6,6 @@ import { sendMail } from "../core/mailer";
 const sendContactEmail = async (req: Request, res: Response) => {
   try {
     const { name, email, phone, company, website, subject, message } = req.body
-    console.log(req.body)
     const contact = new Contact()
     contact.name = name
     contact.email = email
@@ -18,9 +17,9 @@ const sendContactEmail = async (req: Request, res: Response) => {
 
     await sendMail({
       from: email,
-      to: 'rafaprofi4@gmail.com',
+      to: 'contact@kapitalads.com',
       subject,
-      html: '<div>This is test</div>'
+      html: `<div>${message}</div>`
     })
 
     await AppDataSource.manager.save(contact)
